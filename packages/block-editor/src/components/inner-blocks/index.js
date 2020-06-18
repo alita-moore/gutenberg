@@ -50,23 +50,26 @@ function UncontrolledInnerBlocks( props ) {
 
 	const isSmallScreen = useViewportMatch( 'medium', '<' );
 
-	const { hasOverlay, block, enableClickThrough } = useSelect( ( select ) => {
-		const {
-			getBlock,
-			isBlockSelected,
-			hasSelectedInnerBlock,
-			isNavigationMode,
-		} = select( 'core/block-editor' );
-		const theBlock = getBlock( clientId );
-		return {
-			block: theBlock,
-			hasOverlay:
-				theBlock.name !== 'core/template' &&
-				! isBlockSelected( clientId ) &&
-				! hasSelectedInnerBlock( clientId, true ),
-			enableClickThrough: isNavigationMode() || isSmallScreen,
-		};
-	} );
+	const { hasOverlay, block, enableClickThrough } = useSelect(
+		( select ) => {
+			const {
+				getBlock,
+				isBlockSelected,
+				hasSelectedInnerBlock,
+				isNavigationMode,
+			} = select( 'core/block-editor' );
+			const theBlock = getBlock( clientId );
+			return {
+				block: theBlock,
+				hasOverlay:
+					theBlock.name !== 'core/template' &&
+					! isBlockSelected( clientId ) &&
+					! hasSelectedInnerBlock( clientId, true ),
+				enableClickThrough: isNavigationMode() || isSmallScreen,
+			};
+		},
+		[ clientId, isSmallScreen ]
+	);
 
 	useNestedSettingsUpdate(
 		clientId,

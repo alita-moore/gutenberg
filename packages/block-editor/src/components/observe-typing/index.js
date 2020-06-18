@@ -45,8 +45,9 @@ function isKeyDownEligibleForStartTyping( event ) {
 function ObserveTyping( { children, setTimeout: setSafeTimeout } ) {
 	const typingContainer = useRef();
 	const lastMouseMove = useRef();
-	const isTyping = useSelect( ( select ) =>
-		select( 'core/block-editor' ).isTyping()
+	const isTyping = useSelect(
+		( select ) => select( 'core/block-editor' ).isTyping(),
+		[]
 	);
 	const { startTyping, stopTyping } = useDispatch( 'core/block-editor' );
 	useEffect( () => {

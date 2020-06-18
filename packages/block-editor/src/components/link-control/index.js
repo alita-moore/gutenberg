@@ -183,12 +183,9 @@ function LinkControl( {
 	const [ errorMessage, setErrorMessage ] = useState( null );
 	const isEndingEditWithFocus = useRef( false );
 
-	const { fetchSearchSuggestions } = useSelect( ( select ) => {
+	const fetchSearchSuggestions = useSelect( ( select ) => {
 		const { getSettings } = select( 'core/block-editor' );
-		return {
-			fetchSearchSuggestions: getSettings()
-				.__experimentalFetchLinkSuggestions,
-		};
+		return getSettings().__experimentalFetchLinkSuggestions;
 	}, [] );
 	const displayURL =
 		( value && filterURLForDisplay( safeDecodeURI( value.url ) ) ) || '';

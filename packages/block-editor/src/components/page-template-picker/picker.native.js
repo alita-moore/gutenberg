@@ -36,13 +36,11 @@ const __experimentalPageTemplatePicker = ( {
 	visible,
 } ) => {
 	const { editPost } = useDispatch( 'core/editor' );
-	const { title } = useSelect( ( select ) => {
+	const title = useSelect( ( select ) => {
 		const { getEditedPostAttribute } = select( 'core/editor' );
 
-		return {
-			title: getEditedPostAttribute( 'title' ),
-		};
-	} );
+		return getEditedPostAttribute( 'title' );
+	}, [] );
 
 	const [ templatePreview, setTemplatePreview ] = useState();
 	const [ pickerVisible, setPickerVisible ] = useState( visible );

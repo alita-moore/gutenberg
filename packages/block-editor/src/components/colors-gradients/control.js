@@ -175,10 +175,13 @@ function ColorGradientControlInner( {
 }
 
 function ColorGradientControlSelect( props ) {
-	const colorGradientSettings = useSelect( ( select ) => {
-		const settings = select( 'core/block-editor' ).getSettings();
-		return pick( settings, colorsAndGradientKeys );
-	} );
+	const colorGradientSettings = useSelect(
+		( select ) => {
+			const settings = select( 'core/block-editor' ).getSettings();
+			return pick( settings, colorsAndGradientKeys );
+		},
+		[ colorsAndGradientKeys ]
+	);
 	return (
 		<ColorGradientControlInner
 			{ ...{ ...colorGradientSettings, ...props } }

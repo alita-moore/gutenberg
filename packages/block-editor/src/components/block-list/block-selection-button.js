@@ -31,21 +31,21 @@ function BlockSelectionButton( {
 	moverDirection,
 	...props
 } ) {
-	const selected = useSelect(
+	const { index, name, attributes } = useSelect(
 		( select ) => {
 			const {
 				__unstableGetBlockWithoutInnerBlocks,
 				getBlockIndex,
 			} = select( 'core/block-editor' );
-			const index = getBlockIndex( clientId, rootClientId );
-			const { name, attributes } = __unstableGetBlockWithoutInnerBlocks(
-				clientId
-			);
-			return { index, name, attributes };
+			const block = __unstableGetBlockWithoutInnerBlocks( clientId );
+			return {
+				index: getBlockIndex( clientId, rootClientId ),
+				name: block.name,
+				attributes: block.attributes,
+			};
 		},
 		[ clientId, rootClientId ]
 	);
-	const { index, name, attributes } = selected;
 	const { setNavigationMode, removeBlock } = useDispatch(
 		'core/block-editor'
 	);

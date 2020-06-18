@@ -12,18 +12,25 @@ export const __experimentalUsePageTemplatePickerAvailable = () => {
 };
 
 export const __experimentalUsePageTemplatePickerVisible = () => {
-	const isTemplatePickerAvailable = __experimentalUsePageTemplatePickerAvailable();
+	return useSelect(
+		( select ) => {
+			const { getBlockOrder, getBlock } = select( 'core/block-editor' );
 
-	return useSelect( ( select ) => {
-		const { getBlockOrder, getBlock } = select( 'core/block-editor' );
+			const blocks = getBlockOrder();
+			const isEmptyBlockList = blocks.length === 0;
+			const firstBlock = ! isEmptyBlockList && getBlock( blocks[ 0 ] );
 
-		const blocks = getBlockOrder();
-		const isEmptyBlockList = blocks.length === 0;
-		const firstBlock = ! isEmptyBlockList && getBlock( blocks[ 0 ] );
-		const isOnlyUnmodifiedDefault =
-			blocks.length === 1 && isUnmodifiedDefaultBlock( firstBlock );
-		const isEmptyContent = isEmptyBlockList || isOnlyUnmodifiedDefault;
+			const isOnlyUnmodifiedDefault =
+				blocks.length === 1 && isUnmodifiedDefaultBlock( firstBlock );
 
-		return isEmptyContent && isTemplatePickerAvailable;
-	}, [] );
+			const isEmptyContent = isEmptyBlockList || isOnlyUnmodifiedDefault;
+			const isTemplatePickerAvailable = __experimentalUsePageTemplatePickerAvailable();
+
+			return isEmptyContent && isTemplatePickerAvailable;
+		},
+		[
+			isUnmodifiedDefaultBlock,
+			__experimentalUsePageTemplatePickerAvailable,
+		]
+	);
 };

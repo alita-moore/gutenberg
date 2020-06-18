@@ -44,16 +44,10 @@ function InserterMenu( {
 		isAppender,
 		selectBlockOnInsert: __experimentalSelectBlockOnInsert,
 	} );
-	const { hasPatterns } = useSelect(
-		( select ) => {
-			const { getSettings } = select( 'core/block-editor' );
-			return {
-				hasPatterns: !! getSettings().__experimentalBlockPatterns
-					?.length,
-			};
-		},
-		[ isAppender, clientId, rootClientId ]
-	);
+	const hasPatterns = useSelect( ( select ) => {
+		const { getSettings } = select( 'core/block-editor' );
+		return !! getSettings().__experimentalBlockPatterns?.length;
+	}, [] );
 
 	const showPatterns = ! destinationRootClientId && hasPatterns;
 	const onKeyDown = ( event ) => {

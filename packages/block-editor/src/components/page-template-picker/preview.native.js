@@ -28,7 +28,7 @@ import styles from './styles.scss';
 const BlockPreview = ( { blocks } ) => {
 	const currentSettings = useSelect( ( select ) => {
 		return select( 'core/block-editor' ).getSettings();
-	} );
+	}, [] );
 	const settings = {
 		...currentSettings,
 		readOnly: true,

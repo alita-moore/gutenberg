@@ -60,15 +60,13 @@ export default function InsertionPoint( {
 	const [ inserterElement, setInserterElement ] = useState( null );
 	const [ inserterClientId, setInserterClientId ] = useState( null );
 	const ref = useRef();
-	const { multiSelectedBlockClientIds } = useSelect( ( select ) => {
+	const multiSelectedBlockClientIds = useSelect( ( select ) => {
 		const { getMultiSelectedBlockClientIds } = select(
 			'core/block-editor'
 		);
 
-		return {
-			multiSelectedBlockClientIds: getMultiSelectedBlockClientIds(),
-		};
-	} );
+		return getMultiSelectedBlockClientIds();
+	}, [] );
 
 	function onMouseMove( event ) {
 		if (

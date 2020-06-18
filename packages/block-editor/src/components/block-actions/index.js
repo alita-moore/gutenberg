@@ -21,10 +21,10 @@ export default function BlockActions( { clientIds, children } ) {
 		getBlocksByClientId,
 		getTemplateLock,
 	} = useSelect( ( select ) => select( 'core/block-editor' ), [] );
-	const {
-		getDefaultBlockName,
-		getGroupingBlockName,
-	} = useSelect( ( select ) => select( 'core/blocks' ) );
+	const { getDefaultBlockName, getGroupingBlockName } = useSelect(
+		( select ) => select( 'core/blocks' ),
+		[]
+	);
 
 	const blocks = getBlocksByClientId( clientIds );
 	const rootClientId = getBlockRootClientId( clientIds[ 0 ] );

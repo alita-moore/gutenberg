@@ -147,10 +147,13 @@ export const PanelColorGradientSettingsInner = ( {
 };
 
 const PanelColorGradientSettingsSelect = ( props ) => {
-	const colorGradientSettings = useSelect( ( select ) => {
-		const settings = select( 'core/block-editor' ).getSettings();
-		return pick( settings, colorsAndGradientKeys );
-	} );
+	const colorGradientSettings = useSelect(
+		( select ) => {
+			const settings = select( 'core/block-editor' ).getSettings();
+			return pick( settings, colorsAndGradientKeys );
+		},
+		[ colorsAndGradientKeys ]
+	);
 	return (
 		<PanelColorGradientSettingsInner
 			{ ...{ ...colorGradientSettings, ...props } }

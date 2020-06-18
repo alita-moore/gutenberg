@@ -206,7 +206,12 @@ function RichTextWrapper(
 		disabled,
 		undo,
 		shouldBlurOnUnmount,
-	} = useSelect( selector );
+	} = useSelect( selector, [
+		clientId,
+		identifier,
+		isUnmodifiedDefaultBlock,
+		originalIsSelected,
+	] );
 	const {
 		__unstableMarkLastChangeAsPersistent,
 		enterFormattedText,
